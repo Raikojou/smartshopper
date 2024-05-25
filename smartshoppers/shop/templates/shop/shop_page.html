@@ -5,9 +5,11 @@
 {% block content %}
     <h1>{{store.name}} Coupon Codes</h1>
     {% if store.coupons.all %}
+    <ul>
         {% for coupon in store.coupons.all %}
-            {{coupon.code}} - {{coupon.description}}
+            <li>{{coupon.code}} - {{coupon.description}}</li>
         {% endfor %}
+    </ul>
     {% else %}
         wow, such empty.
     {% endif %}

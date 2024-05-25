@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hello, Smart Shoppers!</h1>
+
+    <h3>Our stores:</h3>
+    <ul>
+        {% for store in all_stores %}
+            <li><a href="{% url 'store' slug=store.slug %}">{{store.name}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

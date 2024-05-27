@@ -17,6 +17,11 @@ class Store(models.Model):
     category = models.ManyToManyField(
         StoreCategory,
         related_name='category')
+    tags = models.TextField(
+        help_text = "tags, separated with coma. eg: \"clothes,leggings,pants,shorts\"",
+        blank=True,
+        null=True
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:

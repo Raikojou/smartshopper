@@ -1,0 +1,4 @@
+{% for store in results %}
+    <a href="{% url 'store' slug=store.slug %}">{{store.name}}</a>
+{% endfor %}
+<a href="{% url 'full_store_search' %}?query={{ query }}">View all results</a>

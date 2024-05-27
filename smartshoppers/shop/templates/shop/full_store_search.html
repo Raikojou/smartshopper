@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %} - Search "{{query}}"{% endblock %}
+
+{% block content %}
+<h1>Search Results for "{{query}}"</h1>
+{% for store in results %}
+    <a href="{% url 'store' slug=store.slug %}">{{ store.name }}</a>
+{% endfor %}
+{% endblock %}

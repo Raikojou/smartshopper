@@ -7,10 +7,67 @@
         <title>Smart Shoppers{% block title %}{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
     </head>
     <body>
+        <div class="top-bar">
+            <div class="dropdown">
+                <input type="text" name="query" id="id_query" placeholder="Search" maxlength="100">
+                <div class="dropdown-content" id="search-results"></div>
+            </div>
+        </div>
         {% block content %}{% endblock %}
-        <script src="" async defer></script>
+        <script>
+            $(document).ready(function() {
+                $('#id_query').on('input', function() {
+                    var query = $(this).val();
+                    if (query.length > 0) {
+                        $.ajax({
+                            url: '{% url "store_search" %}',
+                            data: {
+                                'query': query
+                            },
+                            success: function(data) {
+                                $('#search-results').html(data);
+                                $('#search-results').show();
+                            }
+                        });
+                    } else {
+                        $('#search-results').empty();
+                        $('#search-results').hide();
+                    }
+                });
+    
+                // Hide the dropdown when clicking outside
+                $(document).on('click', function(e) {
+                    if (!$(e.target).closest('.dropdown').length) {
+                        $('#search-results').hide();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
